@@ -62,7 +62,7 @@ alfastack-client/
 └── vite.config.js      # Vite configuration
 ```
 
-## 📁 Project Structure Frontend
+## 📁 Project Structure Backend
 
 ```
 alfastack-server/
