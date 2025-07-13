@@ -60,6 +60,7 @@ alfastack-client/
 ├── package.json        # Project dependencies and scripts
 ├── tailwind.config.js  # Tailwind CSS configuration
 └── vite.config.js      # Vite configuration
+```
 
 ## 📁 Project Structure Frontend
 
