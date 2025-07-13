@@ -12,7 +12,9 @@ app.use(express.json());
 app.use("/api", contactRoutes);
 
 const PORT = process.env.PORT || 5000;
-
+app.get("/", (req, res) => {
+  res.send("App is running");
+});
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("MongoDB connected");
