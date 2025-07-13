@@ -81,5 +81,10 @@ alfastack-server/
 
 ```
 
+## 🌐 Live URLs
+
+- **Frontend**: [Go Live](https://alfastack-client.vercel.app)
+- **Backend**: [Go Live](https://alfastack-server.vercel.app)
+
 
 
