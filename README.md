@@ -21,24 +21,32 @@ A modern React-based project utilizing the latest frontend technologies and tool
 
 ## 🛠️ Installation
 
-1. Install dependencies:
+### 🚀 Frontend (Client)
+
+
    ```bash
+   cd alfastack-client
    npm install
-   # or
-   yarn install
+  
    ```
    
-2. Start the development server:
+## 🛠️ Backend
+
+ ```bash
+   cd alfastack-server
+   npm install
+   
+   ```
+   
+2. Start the development server for both:
    ```bash
-   npm start
-   # or
-   yarn start
+   npm run dev
    ```
 
-## 📁 Project Structure
+## 📁 Project Structure Frontend
 
 ```
-react_app/
+alfastack-client/
 ├── public/             # Static assets
 ├── src/
 │   ├── components/     # Reusable UI components
@@ -52,56 +60,25 @@ react_app/
 ├── package.json        # Project dependencies and scripts
 ├── tailwind.config.js  # Tailwind CSS configuration
 └── vite.config.js      # Vite configuration
+
+## 📁 Project Structure Frontend
+
+```
+alfastack-server/
+├── controllers/        
+│   └── contactController.js
+├── routes/              
+│   └── contactRoutes.js
+├── services/            
+│   └── contactService.js
+├── models/              
+│   └── Contact.js
+├── .env                  
+├── server.js            
+├── package.json          
+          
+
 ```
 
-## 🧩 Adding Routes
-
-To add new routes to the application, update the `Routes.jsx` file:
-
-```jsx
-import { useRoutes } from "react-router-dom";
-import HomePage from "pages/HomePage";
-import AboutPage from "pages/AboutPage";
-
-const ProjectRoutes = () => {
-  let element = useRoutes([
-    { path: "/", element: <HomePage /> },
-    { path: "/about", element: <AboutPage /> },
-    // Add more routes as needed
-  ]);
-
-  return element;
-};
-```
-
-## 🎨 Styling
-
-This project uses Tailwind CSS for styling. The configuration includes:
-
-- Forms plugin for form styling
-- Typography plugin for text styling
-- Aspect ratio plugin for responsive elements
-- Container queries for component-specific responsive design
-- Fluid typography for responsive text
-- Animation utilities
-
-## 📱 Responsive Design
-
-The app is built with responsive design using Tailwind CSS breakpoints.
 
 
-## 📦 Deployment
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-## 🙏 Acknowledgments
-
-- Built with [Rocket.new](https://rocket.new)
-- Powered by React and Vite
-- Styled with Tailwind CSS
-
-Built with ❤️ on Rocket.new
