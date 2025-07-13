@@ -256,14 +256,14 @@ const TechStackSection = () => {
                     <span className="text-xs text-muted-foreground">Proficiency</span>
                     <span className="text-xs font-medium text-foreground">{tech.proficiency}%</span>
                   </div>
-                  <div className="w-full bg-muted/20 rounded-full h-2">
+                  {/* <div className="w-full bg-muted/20 rounded-full h-2">
                     <motion.div
                       className={`h-2 rounded-full ${tech.color.replace('text-', 'bg-')}`}
                       initial={{ width: 0 }}
                       animate={isInView ? { width: `${tech.proficiency}%` } : { width: 0 }}
                       transition={{ duration: 1.5, delay: 0.8 + index * 0.1, ease: "easeOut" }}
                     />
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="flex items-center justify-between text-xs text-muted-foreground">

@@ -43,9 +43,9 @@ const HeroSection = () => {
 
   const handleScrollToNext = () => {
     const nextElement = document.getElementById('who-we-are');
-    if (nextElement) {
-      nextElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // if (nextElement) {
+    //   nextElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // }
   };
 
   const handleConsultationClick = () => {
@@ -63,9 +63,9 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section  className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-primary to-background">
+      <div className="absolute inset-0  bg-gradient-to-br from-background via-primary to-background">
         {/* Floating Geometric Shapes */}
         {[...Array(8)].map((_, i) => (
           <motion.div
@@ -147,12 +147,12 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="mb-8"
+          // transition={{ duration: 1, ease: "easeOut" }}
+          className="mb-8 mt-[200px]"
         >
           {/* Enhanced Animated Headline */}
           <motion.h1 
-            className="text-4xl sm:text-5xl lg:text-7xl font-heading font-bold text-foreground mb-6 leading-tight"
+            className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-heading font-bold text-foreground mb-6 leading-tight"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
@@ -172,7 +172,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed"
+            className="text-xl sm:text-2xl lg:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed"
           >
             Proven methodologies. Cutting-edge technology. Risk-free implementation.
           </motion.p>
@@ -256,6 +256,7 @@ const HeroSection = () => {
               { label: 'Efficiency Gains Achieved', value: '85%', icon: 'Zap' }
             ].map((metric, index) => (
               <motion.div
+              
                 key={metric.label}
                 className="text-center"
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -267,7 +268,7 @@ const HeroSection = () => {
                   <div className="p-2 bg-accent/10 rounded-lg mr-3">
                     <Icon name={metric.icon} size={20} className="text-accent" />
                   </div>
-                  <span className="text-3xl font-bold text-foreground">
+                  <span style={{paddingTop:"300px"}} className="text-3xl  font-bold text-foreground">
                     {metric.value}
                   </span>
                 </div>

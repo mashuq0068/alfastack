@@ -18,61 +18,16 @@ const ContactSection = () => {
   const { register, handleSubmit, formState: { errors }, watch, reset, trigger } = useForm();
 
   // Mock urgency counter effect
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setUrgencyCounter(prev => prev > 1 ? prev - 1 : 7);
     }, 30000);
     return () => clearInterval(interval);
   }, []);
 
-  const onSubmit = async (data) => {
-    setIsSubmitting(true);
-    
-    try {
-      // Simulate API call with enhanced data structure
-      const submissionData = {
-        ...data,
-        timestamp: new Date().toISOString(),
-        step: currentStep,
-        source: 'landing_page',
-        ip_address: '192.168.1.1', // In real app, get from backend
-        user_agent: navigator.userAgent,
-        session_id: `session_${Date.now()}`,
-        form_version: '2.0'
-      };
-
-      // Simulate form submission delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Store form data (in real app, send to backend/CMS)
-      setFormData(submissionData);
-      localStorage.setItem('consultation_request', JSON.stringify(submissionData));
-      
-      console.log('Form submitted successfully:', submissionData);
-      
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      reset();
-      setCurrentStep(1);
-      
-      // Analytics tracking (in real app)
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'form_submit', {
-          event_category: 'engagement',
-          event_label: 'consultation_request',
-          value: 1
-        });
-      }
-      
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setIsSubmitting(false);
-      // In real app, show error message
-    }
-  };
 
   const nextStep = async () => {
-    const isValid = await trigger(['firstName', 'lastName', 'email', 'company', 'jobTitle', 'phone']);
+    const isValid = await trigger(['firstName', 'lastName', 'email', 'phone']);
     if (isValid && currentStep < 2) {
       setCurrentStep(currentStep + 1);
     }
@@ -122,6 +77,8 @@ const ContactSection = () => {
       availability: "hello@alfastack.com"
     }
   ];
+
+
 
   if (submitSuccess) {
     return (
@@ -206,7 +163,45 @@ const ContactSection = () => {
       </section>
     );
   }
+  const onSubmit = async (data) => {
+  setIsSubmitting(true);
 
+  try {
+    // Compose the data you want to send
+    const submissionData = {
+      ...data,
+   
+    };
+
+    // Make POST request to your backend API
+    const response = await fetch('https://alfastack-server.vercel.app/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(submissionData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+
+    console.log('Form submitted successfully:', result);
+
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
+    reset();
+    setCurrentStep(1);
+
+
+  } catch (error) {
+    console.error('Form submission error:', error);
+    setIsSubmitting(false);
+    // You may want to show a user-friendly error message here
+  }
+};
   return (
     <section id="contact" ref={ref} className="py-20 bg-gradient-to-b from-background to-primary/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -412,20 +407,20 @@ const ContactSection = () => {
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Input
-                      label="Company Name"
+                      label="Your Company Name"
                       type="text"
                       placeholder="Your Company"
-                      {...register('company', { required: 'Company name is required' })}
-                      error={errors.company?.message}
-                      required
+                      {...register('company')}
+                      // error={errors.company?.message}
+                    
                     />
                     <Input
-                      label="Job Title"
+                      label="Your Designation"
                       type="text"
                       placeholder="CTO, IT Director, etc."
-                      {...register('jobTitle', { required: 'Job title is required' })}
-                      error={errors.jobTitle?.message}
-                      required
+                      {...register('jobTitle')}
+                      // error={errors.jobTitle?.message}
+                      
                     />
                   </div>
                   
@@ -453,7 +448,7 @@ const ContactSection = () => {
                         Company Size
                       </label>
                       <select
-                        {...register('companySize', { required: 'Company size is required' })}
+                        {...register('companySize')}
                         className="w-full px-3 py-2 bg-input border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
                       >
                         <option value="">Select size</option>
@@ -472,7 +467,7 @@ const ContactSection = () => {
                         Industry
                       </label>
                       <select
-                        {...register('industry', { required: 'Industry is required' })}
+                        {...register('industry')}
                         className="w-full px-3 py-2 bg-input border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
                       >
                         <option value="">Select industry</option>
@@ -495,7 +490,7 @@ const ContactSection = () => {
                       Primary Challenge
                     </label>
                     <select
-                      {...register('challenge', { required: 'Primary challenge is required' })}
+                      {...register('challenge')}
                       className="w-full px-3 py-2 bg-input border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
                     >
                       <option value="">Select primary challenge</option>
@@ -517,7 +512,7 @@ const ContactSection = () => {
                       Project Timeline
                     </label>
                     <select
-                      {...register('timeline', { required: 'Timeline is required' })}
+                      {...register('timeline')}
                       className="w-full px-3 py-2 bg-input border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
                     >
                       <option value="">Select timeline</option>
@@ -533,11 +528,12 @@ const ContactSection = () => {
                   
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Additional Details
+                      Message <span className='text-red-500'>*</span>
                     </label>
                     <textarea
                       {...register('details')}
                       rows={4}
+                      required
                       placeholder="Tell us more about your specific requirements, challenges, or goals..."
                       className="w-full px-3 py-2 bg-input border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none transition-all duration-200"
                     />
@@ -564,7 +560,7 @@ const ContactSection = () => {
                     type="button"
                     onClick={nextStep}
                     className="bg-accent hover:bg-accent/90 text-accent-foreground ml-auto transform hover:scale-105 transition-all duration-300"
-                    disabled={!watch('firstName') || !watch('lastName') || !watch('email') || !watch('company')}
+                    disabled={!watch('firstName') || !watch('lastName') || !watch('email') }
                   >
                     Next Step
                     <Icon name="ArrowRight" size={16} className="ml-2" />

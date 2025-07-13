@@ -140,74 +140,7 @@ const TransformationModelSection = () => {
                 transition={{ duration: 1.5, ease: "easeInOut" }}
               />
 
-              {/* Phase Cards */}
-              <div className="grid grid-cols-5 gap-4">
-                {phases.map((phase, index) => (
-                  <div key={phase.id} className="relative">
-                    {/* Timeline Dot */}
-                    <motion.div
-                      className={`absolute top-28 left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 border-background z-10 transition-all duration-500 ${
-                        index <= activePhase ? 'bg-accent' : 'bg-muted/30'
-                      }`}
-                      whileHover={{ scale: 1.2 }}
-                    />
-
-                    {/* Phase Card */}
-                    <motion.div
-                      className={`phase-${index} glassmorphism rounded-xl p-6 cursor-pointer transition-all duration-500 border-2 ${
-                        activePhase === index 
-                          ? `${phase.borderColor} card-shadow scale-105` 
-                          : 'border-border hover:border-accent/30'
-                      }`}
-                      onClick={() => setActivePhase(index)}
-                      whileHover={{ y: -5 }}
-                    >
-                      <div className={`p-3 rounded-lg ${phase.bgColor} mb-4 inline-block`}>
-                        <Icon name={phase.icon} size={24} className={phase.color} />
-                      </div>
-                      
-                      <h3 className="text-lg font-semibold text-foreground mb-2">
-                        {phase.title}
-                      </h3>
-                      
-                      <div className={`text-sm font-medium mb-3 ${phase.color}`}>
-                        {phase.duration}
-                      </div>
-                      
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {phase.description}
-                      </p>
-
-                      {/* Progress Indicator */}
-                      {activePhase === index && (
-                        <motion.div
-                          className="mt-4 pt-4 border-t border-border"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <div className="flex items-center space-x-2">
-                            <div className="flex-1 bg-muted/20 rounded-full h-1">
-                              <motion.div
-                                className={`h-1 rounded-full ${phase.color.replace('text-', 'bg-')}`}
-                                initial={{ width: 0 }}
-                                animate={{ width: '100%' }}
-                                transition={{ duration: 3, ease: "linear" }}
-                              />
-                            </div>
-                            <span className="text-xs text-muted-foreground">Active</span>
-                          </div>
-                        </motion.div>
-                      )}
-                    </motion.div>
-
-                    {/* Connection Line */}
-                    {index < phases.length - 1 && (
-                      <div className={`connection-${index} absolute top-32 right-0 w-full h-1 bg-accent origin-left transform translate-x-6`} />
-                    )}
-                  </div>
-                ))}
-              </div>
+              
             </div>
           </div>
 
